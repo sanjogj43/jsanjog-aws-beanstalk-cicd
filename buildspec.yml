@@ -26,5 +26,5 @@ phases:
 artifacts:
   files:
     - aws-elastic-beanstalk-example-0.0.1-SNAPSHOT.war
-    - .ebextensions/**/*
+    - target/**/*
   base-directory: 'target/aws-elastic-beanstalk-example-0.0.1-SNAPSHOT'
