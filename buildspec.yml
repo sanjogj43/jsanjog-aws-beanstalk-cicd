@@ -1,16 +1,30 @@
-version: 0.2
+#version: 0.2
+#phases:
+#  pre_build:
+#    commands:
+#    - echo "Entered pre build phase"
+#  build:
+#    commands:
+#    - echo "Entered build phase"
+#    - mvn clean prepare-package war:exploded
+#  post_build:
+#    commands:
+#    - echo "Entered the post-build phase"
+#    - mv target/deploy ./
+#artifacts:
+#  files:
+#    - deploy/**/*
+
 phases:
-  pre_build:
-    commands:
-    - echo "Entered pre build phase"
-  build:
-    commands:
-    - echo "Entered build phase"
-    - mvn clean prepare-package war:exploded
+  install:
+    runtime-versions:
+      java: corretto11
   post_build:
     commands:
-    - echo "Entered the post-build phase"
-    - mv target/deploy ./
+      - mvn package
+      - mv target/aws-elastic-beanstalk-example-0.0.1-SNAPSHOT.war aws-elastic-beanstalk-example-0.0.1-SNAPSHOT.war
 artifacts:
   files:
-    - deploy/**/*
+    - aws-elastic-beanstalk-example-0.0.1-SNAPSHOT.war
+    - .ebextensions/**/*
+  base-directory: 'target/aws-elastic-beanstalk-example-0.0.1-SNAPSHOT'
